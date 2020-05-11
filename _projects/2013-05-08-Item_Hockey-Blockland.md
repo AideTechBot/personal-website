@@ -1,6 +1,8 @@
 ---
 layout: post
+shortTitle: Hockey
 title: Item_Hockey - Blockland Add-On
+thumbnail: assets/thumbnails/hockey.png
 date: 2013-05-08 00:00 -0400
 ---
 

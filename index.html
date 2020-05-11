@@ -11,7 +11,21 @@ layout: default
     &nbsp;-&nbsp;
     <i class="fa fa-file-text"></i>&nbsp;<a href="resume.html">My resum&eacute;</a>
   </div>
+  <h2>{{ site.projects_title }}</h2>
+ 	<div class="projects">
+		{% for project in site.projects %}
+		<div class="container">
+			<a href="{{ project.url | prepend: site.baseurl | prepend: site.url }}">
+				<img src="{{ project.thumbnail }}"></img>
+			</a>
+			<div class="text-block">
+				{{ project.shortTitle }}
+			</div>
+		</div>
+		{% endfor %}
+	</div>
 
+  <h2>{{ site.blog_title }}</h2>
 	{% for post in site.posts %}
 		{% unless post.next %}
 			<h3 class="code">{{ post.date | date: '%Y' }}</h3>

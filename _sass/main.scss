@@ -160,7 +160,8 @@ ol {
     word-wrap: break-word;
   }
   img {
-    margin: 40px 0;
+    width: 128px;
+    height: 40px;
     border-radius: 5px;
   }
 }
@@ -404,5 +405,35 @@ section {
   }
   100% {
     -webkit-transform: none;
+  }
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+  position: relative;
+  .container {
+    position: relative;
+  }
+  a {
+    border-bottom: 0px;
+    img {
+      border-radius: 5px;
+    }
+  }
+  .text-block {
+    pointer-events: none;
+    position: absolute;
+    bottom:0px;
+    left:0px;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 0px 0px 5px 5px;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
   }
 }

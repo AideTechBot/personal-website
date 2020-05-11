@@ -1,5 +1,7 @@
 # Site Info
 title:              "Manuel Dionne"
+blog_title:         "Blog"
+projects_title:     "Projects"
 description:        "Code, Space and Video Games"
 author_name:        "Manuel Dionne" # change this to your name
 logo_url:           https://raw.githubusercontent.com/AideTechBot/test-website/master/assets/profile.png # Get it from GitHub API: https://api.github.com/users/<username>
@@ -20,12 +22,14 @@ sass:
     style:          :compressed
 
 # Other Params
-include:            [ "robots.txt" ]
+include:            [ "robots.txt", "resume.html" ]
 exclude:            [ "LICENSE", "README.md", "CNAME", "vendor", "Gemfile", "script" ]
 plugins:
   - jekyll-sitemap
 
-
+collections:
+  projects:
+    output: true
 
 defaults:
   -
@@ -43,3 +47,8 @@ defaults:
       type:         "posts"
     values:
       layout:       "post"
+  -
+    scope:
+      type: "projects" 
+    values:
+      layout: "page"
