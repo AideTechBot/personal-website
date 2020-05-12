@@ -1,8 +1,8 @@
 ---
-layout: post
+layout: project
 shortTitle: Tiva HTTP
 title: Tiva HTTP - A Microcontroller-based Web Server
-thumbnail: assets/thumbnails/hockey.png
+thumbnail: assets/thumbnails/tiva.png
 date: 2016-11-30 00:00 -0400
 ---
 

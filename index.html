@@ -13,15 +13,16 @@ layout: default
   </div>
   <h2>{{ site.projects_title }}</h2>
  	<div class="projects">
-		{% for project in site.projects %}
-		<div class="container">
-			<a href="{{ project.url | prepend: site.baseurl | prepend: site.url }}">
-				<img src="{{ project.thumbnail }}"></img>
-			</a>
-			<div class="text-block">
-				{{ project.shortTitle }}
+		{% assign sorted = site.projects | sort: 'date' | reverse %}
+		{% for project in sorted %}
+			<div class="container">
+				<a href="{{ project.url | prepend: site.baseurl | prepend: site.url }}">
+					<img src="{{ project.thumbnail }}"></img>
+					<div class="text-block">
+						{{ project.shortTitle }}
+					</div>
+				</a>
 			</div>
-		</div>
 		{% endfor %}
 	</div>
 

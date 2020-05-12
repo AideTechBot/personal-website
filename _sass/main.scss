@@ -412,28 +412,48 @@ section {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
-  grid-auto-rows: minmax(100px, auto);
+  grid-auto-rows: auto;//minmax(100px, auto);
+  grid-auto-columns: auto;
   position: relative;
   .container {
     position: relative;
   }
   a {
     border-bottom: 0px;
+    height: 100%;
+    display: block;
     img {
+      border: 3px solid #333333;
       border-radius: 5px;
+      width: 100%;
+      height: 100%;
+      display: block;
     }
-  }
-  .text-block {
-    pointer-events: none;
-    position: absolute;
-    bottom:0px;
-    left:0px;
-    background-color: rgba(0, 0, 0, 0);
-    border-radius: 0px 0px 5px 5px;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    font-weight: 700;
-    font-size: 20px;
+    .text-block {
+      position: absolute;
+      bottom:0px;
+      left:0px;
+      width: 100%;
+      height: 30%;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 0px 0px 5px 5px;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      -webkit-transition: font-size 0.2s, height 0.2s;
+      -moz-transition: font-size 0.2s, height 0.2s;
+      -o-transition: font-size 0.2s, height 0.2s;
+      transition: font-size 0.2s, height 0.2s;
+    }
+    .text-block:hover {
+      font-size: 20px;
+      height: 100%;
+    }
   }
 }
