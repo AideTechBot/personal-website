@@ -7,7 +7,7 @@ author_name:        "Manuel Dionne" # change this to your name
 logo_url:           https://raw.githubusercontent.com/AideTechBot/test-website/master/assets/profile.png # Get it from GitHub API: https://api.github.com/users/<username>
 
 # Site Settings
-url:                https://aidetechbot.github.io # main url
+url:                https://mdionne.me # main url
 baseurl:            
 permalink:          /:title # Post permalink
 timezone:           America/Toronto # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
