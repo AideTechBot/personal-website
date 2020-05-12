@@ -460,3 +460,17 @@ section {
     }
   }
 }
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  .social {
+    margin: 5px;
+  }
+}
+@media (max-width: 600px) {
+  .socials {
+    flex-direction: column;
+  }
+}
