@@ -446,13 +446,14 @@ section {
       justify-content: center;
       align-items: center;
 
-      -webkit-transition: font-size 0.2s, height 0.2s;
-      -moz-transition: font-size 0.2s, height 0.2s;
-      -o-transition: font-size 0.2s, height 0.2s;
-      transition: font-size 0.2s, height 0.2s;
+      -webkit-transition: font-size 0.2s, height 0.2s, border-radius 0.2s;
+      -moz-transition: font-size 0.2s, height 0.2s, border-radius 0.2s;
+      -o-transition: font-size 0.2s, height 0.2s, border-radius 0.2s;
+      transition: font-size 0.2s, height 0.2s, border-radius 0.2s;
     }
     .text-block:hover {
       font-size: 20px;
+      border-radius: 5px 5px 5px 5px;
       height: 100%;
     }
   }
