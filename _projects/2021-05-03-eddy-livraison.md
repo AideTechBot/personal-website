@@ -12,6 +12,6 @@ Eddy-Livraison is a multi-lingual website that displays a list of restaurants in
 
 [Check out the live website here.](https://eddy-livraison.com)
 
-[Check out my blog post about it here.](https://mdionne.me/2021-05-03-eddy-livraison-post)
+[Check out my blog post about it here.](https://mdionne.me/eddy-livraison-post)
 
 [View the source code here.](https://github.com/AideTechBot/eddy-livraison)
