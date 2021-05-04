@@ -3,7 +3,7 @@ layout: post
 title: Eddy-Livraison, a new way to order!
 shortTitle: Eddy-Livraison
 thumbnail: assets/thumbnails/eddy.png
-date: 2020-05-11 21:34 -0400
+date: 2021-05-03 20:38 -0400
 ---
 
 **Status**: Deployed and Maintained
