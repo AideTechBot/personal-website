@@ -3,14 +3,14 @@ title:              "Manuel Dionne"
 blog_title:         "Blog"
 projects_title:     "Projects"
 description:        "Code, Space and Video Games"
-author_name:        "Manuel Dionne" # change this to your name
-logo_url:           https://raw.githubusercontent.com/AideTechBot/test-website/master/assets/profile.png # Get it from GitHub API: https://api.github.com/users/<username>
+author_name:        "Manuel Dionne"
+logo_url:           https://raw.githubusercontent.com/AideTechBot/personal-website/master/assets/profile.png # Get it from GitHub API: https://api.github.com/users/<username>
 
 # Site Settings
 url:                https://mdionne.me # main url
 baseurl:            
 permalink:          /:title # Post permalink
-timezone:           America/Toronto # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone:           America/New_York # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 mathjax:            true  # enables support for mathjax - set to 'false' to disable
 
 # Site Build
