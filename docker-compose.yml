@@ -1,0 +1,12 @@
+# This file is because it's too much of a pain to install a super old version of ruby
+# and I'd rather just use a docker image to test locally
+services:
+  jekyll:
+    image: jekyll/jekyll:3.5
+    volumes:
+      - .:/srv/jekyll
+      - /srv/jekyll/.git/
+      - ./vendor/bundle/:/usr/local/bundle
+    ports:
+      - "4000:4000"
+    command: jekyll serve --force_polling --drafts
