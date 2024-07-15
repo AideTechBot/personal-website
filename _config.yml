@@ -22,7 +22,7 @@ sass:
     style:          :compressed
 
 # Other Params
-include:            [ "robots.txt", "resume.html" ]
+include:            [ "robots.txt", "resume.html", "resume.css" ]
 exclude:            [ "LICENSE", "README.md", "CNAME", "vendor", "Gemfile", "script", ".git", "docker-compose.yml", "the-plain.gemspec" ]
 plugins:
   - jekyll-sitemap
