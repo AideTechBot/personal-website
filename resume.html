@@ -56,9 +56,17 @@
               <ul class="tree">
                 <li>
                   <div class="node">
-                    Full-stack web development to maintain a low-code IDE using
+                    Maintained a low-code IDE web app using
                     <strong>TypeScript</strong>, <strong>React</strong>,
                     <strong>Webpack</strong> and <strong>Node.js</strong>.
+                  </div>
+                </li>
+                <li>
+                  <div class="node">
+                    Led large-scale refactoring and development of new features,
+                    authored documentation, created UI and unit tests, set up
+                    observability with Dynatrace and Pendo, and established
+                    development standards for the IDE ecosystem.
                   </div>
                 </li>
                 <li>
@@ -68,6 +76,53 @@
                       <span>September 2023 &rarr; Present</span>
                     </div>
                   </div>
+                  <ul class="tree">
+                    <li>
+                      <div class="node">
+                        Collaboratively designed and implemented a new
+                        architecture to efficiently use custom React components
+                        for modifying the IDE's appearance,
+                        <span class="activity_header activity_header_tag"
+                          >(Improving document render time by 800% to
+                          2800%)</span
+                        >
+                      </div>
+                    </li>
+                    <li>
+                      <div class="node">
+                        Collaboratively developed an architecture for a hookable
+                        state, enabling fully customizable document editing.
+                        <span class="activity_header activity_header_tag"
+                          >(Reducing document editing response time from 1800ms
+                          to 20ms)</span
+                        >
+                      </div>
+                    </li>
+                    <li>
+                      <div class="node">
+                        Enhanced state hooks to support customization of
+                        copy-paste functionality across different document types
+                        and IDE instances.
+                      </div>
+                    </li>
+                    <li>
+                      <div class="node">
+                        Created two diff tools for visualising document
+                        differences, rebasing branches, and resolving conflicts.
+                        The tool was integrated with in-house version control
+                        and built using
+                        <strong>TypeScript</strong> and <strong>React</strong>.
+                      </div>
+                    </li>
+                    <li>
+                      <div class="node">
+                        Upgraded a <strong>Node.js</strong> CLI tool to automate
+                        the generation and setup of local
+                        <strong>NGINX</strong> reverse proxies, facilitating IDE
+                        development in any environment
+                      </div>
+                    </li>
+                  </ul>
                 </li>
                 <li>
                   <div class="node">
@@ -76,6 +131,50 @@
                       <span>August 2021 &rarr; September 2023</span>
                     </div>
                   </div>
+                  <ul class="tree">
+                    <li>
+                      <div class="node">
+                        Created a non-blocking spell-check Web Worker for every
+                        translatable text field in the IDE.<br />
+                        <span class="activity_header activity_header_tag"
+                          >(Reducing wasted time caused by accidental
+                          mispellings because of high turnaround time for UI
+                          string translations.)</span
+                        >
+                      </div>
+                    </li>
+                    <li>
+                      <div class="node">
+                        Implemented a "Find and Replace" feature, enabling users
+                        to search and filter through any part of the IDE and
+                        navigate there immediately.
+                      </div>
+                    </li>
+                    <li>
+                      <div class="node">
+                        Refactored the IDE navigation API to allow better
+                        navigation and scrolling between pages within the IDE.
+                      </div>
+                    </li>
+                    <li>
+                      <div class="node">
+                        Reimplemented Shunting yard algorithm to optimize the
+                        text-styling algorithm in IDE's plugin API.<br />
+                        <span class="activity_header activity_header_tag"
+                          >(Improving performance from O(n^3) to O(n))</span
+                        >
+                      </div>
+                    </li>
+                    <li>
+                      <div class="node">
+                        Accelerated client-side dependency loading by utilizing
+                        various caching methods such as Workbox and ETags.
+                        <span class="activity_header activity_header_tag"
+                          >(Resulting in a 80% performance improvement)</span
+                        >
+                      </div>
+                    </li>
+                  </ul>
                 </li>
                 <li>
                   <div class="node">
@@ -92,7 +191,17 @@
                         of external dependencies and improve performance all
                         while introducing zero regressions.
                         <span class="activity_header activity_header_tag"
-                          >(10%-20% rendering improvement)</span
+                          >(10%&mdash;20% general performance improvement)</span
+                        >
+                      </div>
+                    </li>
+                    <li>
+                      <div class="node">
+                        Improved runtime of ~5000 <strong>Jest</strong> unit
+                        tests by debugging <strong>Jest resolver</strong> then
+                        reorganizing problematic local imports.
+                        <span class="activity_header activity_header_tag"
+                          >(45 minutes to 25 minutes)</span
                         >
                       </div>
                     </li>
@@ -197,16 +306,18 @@
                     <li>
                       <div class="node">
                         Optimized a <strong>WPF</strong>/<strong>OpenGL</strong>
-                        application to increase rendering and load times by
+                        application to decrease 3D rendering and UI load times
+                        by
                         <strong>80%&mdash;300%</strong>.
                       </div>
                     </li>
-                    <!-- <li>
+                    <li>
                       <div class="node">
-                        Implemented support for Unicode by modifying a legacy
-                        DICOM library.
+                        Added support for Unicode patient information by
+                        modifying a legacy library to include an updated
+                        <strong>DICOM</strong> implementation.
                       </div>
-                    </li> -->
+                    </li>
                     <!-- <li>
                       <div class="node">
                         Maintained and designed parts of FDA-approved software
@@ -316,14 +427,19 @@
                         > -->
                       </div>
                     </li>
-                    <!-- <li>
+                    <li>
                       <div class="node">
-                        Interfaced with a graph database
-                        (<strong>neo4j</strong>) to represent and store
-                        relationships between users, roles, and teams within a
-                        non-hierarchical organization.
+                        Rendered a modified graph in <strong>d3.js</strong> to
+                        represent and store relationships between users, roles,
+                        and teams within a non-hierarchical organization.
                       </div>
-                    </li> -->
+                    </li>
+                    <li>
+                      <div class="node">
+                        Implemented markdown formatting for user comments within
+                        text boxes in the app.
+                      </div>
+                    </li>
                     <!-- <li>
                       <div class="node">
                         Facilitated the first releases of the web app to an
@@ -358,12 +474,12 @@
                         in <strong>Powershell</strong> and <strong>C#</strong>.
                       </div>
                     </li>
-                    <!-- <li>
+                    <li>
                       <div class="node">
-                        Created command-line tools for automation of XML file
-                        generation and processing using <strong>C#</strong>.
+                        Automated mock mortgage data generation for better
+                        regression testing using <strong>C#</strong>.
                       </div>
-                    </li> -->
+                    </li>
                   </ul>
                 </li>
               </ul>
@@ -425,8 +541,8 @@
               </a>
             </h3>
             <span>
-              Website that takes a video and overlays audio to create a meme
-              based on the popular anime Initial D. Written in Bun.js and HTMX.
+              Website that overlays audio onto a video to create a meme based on
+              the popular anime Initial D. Written using Bun.js and HTMX.
               <div>+20,000 page views</div>
             </span>
             <!-- <span class="activity_header activity_header_sub">C++</span> -->
@@ -435,7 +551,7 @@
               >September - December 2018</span
             > -->
           </div>
-          <div>
+          <!-- <div>
             <h3>
               <span>WiFi Vision</span>
               <a href="https://devpost.com/software/pronto-vision">
@@ -447,13 +563,13 @@
               Robotic arm on a 3D-printed rail system that uses six ESP8266 WiFi
               chips to plot a heatmap of objects behind walls.
             </span>
-            <!-- <span class="activity_header activity_header_sub">C++</span> -->
-            <!-- <span
+            <span class="activity_header activity_header_sub">C++</span>
+            <span
               class="activity_header activity_header_right activity_header_sub"
               >September - December 2018</span
-            > -->
-          </div>
-          <div>
+            >
+          </div> -->
+          <!-- <div>
             <h3>
               <span>No-Name Raytracer</span>
               <a href="https://github.com/AideTechBot/raytracing">
@@ -465,13 +581,13 @@
               Simple raytracer built in C++ that supports different types of
               materials and multithreaded rendering.
             </span>
-            <!-- <span class="activity_header activity_header_sub">C++</span> -->
-            <!-- <span
+            <span class="activity_header activity_header_sub">C++</span>
+            <span
               class="activity_header activity_header_right activity_header_sub"
               >September - December 2018</span
-            > -->
-          </div>
-          <div>
+            >
+          </div> -->
+          <!-- <div>
             <h3>
               <span>SatTrak</span>
               <a href="https://github.com/AideTechBot/SatTrak">
@@ -479,27 +595,27 @@
                 <i class="fas fa-caret-right"></i>
               </a>
             </h3>
-            <!-- <span class="activity_header activity_header_sub"
+            <span class="activity_header activity_header_sub"
               >C#, WPF, Python</span
             >
             <span class="activity_header activity_header_tag"
               >(Bronze - Canada Wide Science Fair)</span
-            > -->
-            <!-- <span
+            >
+            <span
               class="activity_header activity_header_right activity_header_sub"
               >June 2014 - May 2015</span
-            > -->
+            >
             <span>
               WPF/C# app that allows you to track and receive signals from
               satelites and celestial bodies using a motorized antennae.
             </span>
-            <!-- <span>
+            <span>
               Engineered live interface to facilitate tracking and acquisition
               of satellites using NORAD data. Forwards data to Raspberry Pi
               controlled antennae mount to trace the movement of satellites and
               capture downlink with RTL-SDR.
-            </span> -->
-          </div>
+            </span>
+          </div> -->
           <div>
             <h3>
               <span>This resume</span>
@@ -513,7 +629,7 @@
               inspiration of the 1976 NASA Graphics Standards Manual.
             </span>
           </div>
-          <div>
+          <!-- <div>
             <h3>
               <span>VoteCDJ</span>
               <a href="https://github.com/AideTechBot/VoteCDJ">
@@ -525,8 +641,8 @@
               Electronic voting system front-end and backend created to simplify
               highschool elections. Written in PHP, Javascript, and C#.
             </span>
-          </div>
-          <div>
+          </div> -->
+          <!-- <div>
             <h3>
               <span>tiva-httpd</span>
               <a href="https://github.com/AideTechBot/tiva-httpd">
@@ -538,7 +654,7 @@
               Minimal HTTP server for a Tiva C microcontroller with simple
               filesystem that allows arbitrary file upload.
             </span>
-          </div>
+          </div> -->
         </div>
       </section>
       <!-- <section class="single">

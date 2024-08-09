@@ -270,6 +270,7 @@ html {
                   }
                   > div.no-dot-space {
                     border: var(--line-size-01) solid var(--line-color);
+                    background-color: var(--grey-10);
                     padding: 0.2em 0.3em;
                     display: flex;
                     justify-content: space-between;
