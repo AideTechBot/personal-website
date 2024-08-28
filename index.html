@@ -3,7 +3,7 @@ layout: default
 ---
 
 <header>
-	<h1><a href="/about">{{ site.title }}</a></h1>
+	<h1><a href="{% link about.md %}">{{ site.title }}</a></h1>
 	<div class="socials">
 		<div class="social">
 			<i class="fa fa-github"></i>&nbsp;<a href="https://github.com/AideTechBot">github</a>
@@ -18,7 +18,7 @@ layout: default
 	<section class="blog">
 		<h2>{{ site.blog_title }}</h2>
 		{% assign sorted = site.posts | sort: 'date' | reverse %}
-		{% for post in sorted %}
+		{% for post in sorted limit: 10 %}
 			<div class="links">
 				<div class="link-date">{{ post.date | date: "%Y/%m/%d" }}</div>
 				<div class="link-title">{{ post.title }}</div>
@@ -29,13 +29,21 @@ layout: default
 					&rarr;	
 				</a>
 			</div>
+			{% if forloop.last %}
+				<div class="section-footer">
+					<span>Showing {{ forloop.length }} of {{ site.posts.size }} posts</span>
+					<a class="archive-link" href="{% link blog-archive.md %}">
+						Archive&nbsp;&rarr;
+					</a>
+				</div>
+			{% endif %}
 		{% endfor %}
 	</section>
 
 	<section class="projects">
 		<h2>{{ site.projects_title }}</h2>
 		{% assign sorted = site.projects | sort: 'date' | reverse %}
-		{% for project in sorted %}
+		{% for project in sorted limit: 10 %}
 			<div class="links">
 				<div class="link-date">{{ project.date | date: "%Y/%m/%d" }}</div>
 				<div class="link-title">{{ project.title }}</div>
@@ -46,6 +54,14 @@ layout: default
 					&rarr;	
 				</a>
 			</div>
+			{% if forloop.last %}
+				<div class="section-footer">
+					<span>Showing {{ forloop.length }} of {{ site.projects.size }} projects</span>
+					<a class="archive-link" href="{% link projects-archive.md %}">
+						Archive&nbsp;&rarr;
+					</a>
+				</div>
+			{% endif %}
 		{% endfor %}
 	</section>
 </div>
