@@ -13,7 +13,7 @@ Write a really in depth explanation for this with more pictures and maybe refact
 
 **Status**: Done. (x2) 
 
-A website created for fans of Initial D. It is basically just a meme creator. You can overlay eurobeat music over any video just by uploading it to the site. Since it's inception in May of 2017, it has gathered over **20,000** page views.
+A website created for fans of Initial D. It is *basically* just a meme creator. You can overlay eurobeat music over any video just by uploading it to the site. Since it's inception in May of 2017, it has gathered over **20,000** page views.
 
 I refactored dorifto in 2023, check out my blog post about it [here](/dorifto-revamp).
 

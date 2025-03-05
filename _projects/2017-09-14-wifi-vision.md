@@ -13,7 +13,7 @@ Write a really in depth explanation for this with more pictures and maybe refact
 
 **Status**: Done, abandonned.
 
-A motorised stick of wood that has six chips used to sweep a wall for WiFi signals. After proccessing the signal strength and displaying the data on heatmap, it allows users to see what is behind the wall. This project was based off a paper that used drones to accomplish the same thing. The entire project was done in 36 hours for Hack the North and it won top 14 out of 200 or so teams.
+A motorized stick of wood that has six chips used to sweep a wall for WiFi signals. After proccessing the signal strength and displaying the data on heatmap, it allows users to see what is behind the wall. This project was based off a paper that used drones to accomplish the same thing. The entire project was done in 36 hours for Hack the North and it won top 14 out of 200 or so teams.
 
 
 [Check out the devpost!](https://devpost.com/software/pronto-vision)

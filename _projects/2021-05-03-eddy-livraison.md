@@ -9,7 +9,7 @@ modified: 2024-08-27 21:28 -0400
 
 **Status**: Deployed.
 
-Eddy-Livraison is a multi-lingual website that displays a list of restaurants in the Edmundston region. It favours delivery and local restaurants. It is a strict subset of all the restaurants in Edmundston.
+Eddy-Livraison is a multi-lingual website that displays a list of restaurants in the Edmundston region. It favors delivery and local restaurants. The directory that it displays is not a complete list of all the restaurants in Edmundston.
 
 [Check out the live website here.](https://eddy-livraison.com)
 

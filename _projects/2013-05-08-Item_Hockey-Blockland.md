@@ -15,7 +15,7 @@ TODO: Add better, bigger photos.
 
 **Status**: Done, pretty buggy.
 
-Item_Hockey is an add-on created for an online LEGO-like sandbox game called Blockland. It allows players to equip hockey gear like goalie pads, hockey sticks, skates, etc. and to play actual hockey! It includes the best parts of hockey, like slapshots, side-checking and skating! This was one of my first big projects when I started programming.
+Item_Hockey is an add-on created for an online LEGO-like sandbox game called Blockland. It allows players to equip hockey gear like goalie pads, hockey sticks, skates, etc., and to play actual hockey! It includes the best parts of hockey, like slapshots, side-checking, and skating! This was one of my first big projects when I started programming.
 
 
 [View the source code here.](https://github.com/AideTechBot/item_hockey)

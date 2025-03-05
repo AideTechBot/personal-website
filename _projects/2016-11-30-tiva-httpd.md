@@ -13,6 +13,6 @@ Write a really in depth explanation for this with more pictures and maybe refact
 
 **Status**: Done.
 
-This is a web server that was built from scratch to run on a Tiva C Series microcontroller with an Orbit Booster Pack. Using a python script to redirect the web traffic to the serial port, you can host content directly from a file system that utilises the onboard EEPROM memory of the Orbit Booster Pack. The server tries to comply with a small subset of the RFC 2616 standard. It was created for the SE 101 class at the University of Waterloo with the help of a classmate.
+This is a web server that was built from scratch to run on a Tiva C Series microcontroller with an Orbit Booster Pack. Using a Python script to redirect the web traffic to the serial port, you can host content directly from a file system that utilizes the onboard EEPROM memory of the Orbit Booster Pack. The server tries to comply with a small subset of the RFC 2617 standard. It was created for the SE 101 class at the University of Waterloo with the help of a classmate.
 
 [The code is available here](https://github.com/AideTechBot/tiva-httpd)
