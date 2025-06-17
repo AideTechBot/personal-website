@@ -12,16 +12,18 @@ Soon after I graduated from University in a pandemic, I sat at home, staring at 
 
 With my stomach empty of food but full of motivation, I decided to build my idea. The simplest way I could get this project in motion was using GitHub Pages. It was the perfect match because all I needed was static file hosting. As a bonus, the service is free!
 
-
 The rest of the website is a combination of Next.js magic and GitHub workflow deployment. The only real issues I ran into were:
+
 - Learning a lot of new CSS while trying to simplify everything as much as possible.
 - Next.js static rendering not supporting internationalization while using static rendering.
 - Figuring out a smart display order for the list of restaurants. I settled on ranking them loosely based on how local they are and if they deliver to your door.
 
 # The result
 
-Eddy-Livraison is a multi-lingual website that displays a list of restaurants in the Edmundston region. It favors delivery and local restaurants. It is a strict subset of all the restaurants in Edmundston. If you want your restaurant to be added to it, contact me at **help@eddy-livraison.com**, or simply make a pull request!
+Eddy-Livraison is a multi-lingual website that displays a list of restaurants in the Edmundston region. It favors delivery and local restaurants. It is a strict subset of all the restaurants in Edmundston. If you want your restaurant to be added to it, contact me at **CENSORED**, or simply make a pull request!
 
-[Check out the live website here.](https://eddy-livraison.com)
+[Check out the live website here.](https://aidetechbot.github.io/eddy-livraison/)
 
 [View the source code here.](https://github.com/AideTechBot/eddy-livraison)
+
+**Update as of June 2025**: Unfortunately, I no longer own the domain eddy-livraison.com because it expired. Namecheap is now price gouging me to reclaim it, so I probably won't buy it again.
