@@ -1,0 +1,97 @@
+// Styles for atproto-sourced content: Bluesky comments + Leaflet block embeds
+
+.text-small {
+  font-size: 0.85em;
+}
+
+.text-large {
+  font-size: 1.2em;
+}
+
+.website-embed {
+  display: block;
+  border: solid 0.1rem #bfbfbf;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+
+  .website-title {
+    display: block;
+    font-weight: bold;
+  }
+
+  .website-desc {
+    display: block;
+    color: #555;
+  }
+
+  .website-url {
+    display: block;
+    font-size: 0.85em;
+    color: #888;
+    word-break: break-all;
+  }
+}
+
+.bsky-embed footer {
+  margin-top: 0.5rem;
+  font-size: 0.85em;
+  color: #555;
+}
+
+.bsky-comments {
+  margin-top: 2rem;
+
+  .bsky-comments-meta {
+    color: #555;
+    font-size: 0.9em;
+  }
+}
+
+.bsky-comment {
+  margin: 1rem 0;
+
+  .bsky-comment-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .bsky-avatar {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    margin: 0;
+    display: inline-block;
+  }
+
+  .bsky-author {
+    font-weight: bold;
+  }
+
+  .bsky-handle {
+    color: #888;
+  }
+
+  .bsky-date {
+    color: #888;
+    font-size: 0.85em;
+    border-bottom: none;
+  }
+
+  .bsky-text {
+    margin: 0.25rem 0;
+    white-space: pre-wrap;
+  }
+
+  .bsky-likes {
+    color: #888;
+    font-size: 0.85em;
+  }
+
+  .bsky-replies {
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: solid 0.1rem #bfbfbf;
+  }
+}

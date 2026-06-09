@@ -1,0 +1,121 @@
+{% assign bsky_parts = page.bsky_uri | remove: "at://" | split: "/" %}
+<section class="bsky-comments" id="bsky-comments"
+         data-uri="{{ page.bsky_uri }}"
+         data-url="https://bsky.app/profile/{{ bsky_parts[0] }}/post/{{ bsky_parts[2] }}">
+	<div class="divider"></div>
+	<h3>Comments</h3>
+	<p class="bsky-comments-meta" id="bsky-comments-meta"></p>
+	<p>
+		Reply on <a id="bsky-comments-link" href="https://bsky.app/profile/{{ bsky_parts[0] }}/post/{{ bsky_parts[2] }}">Bluesky</a>
+		to join the conversation.
+	</p>
+	<div id="bsky-comments-thread"><p>Loading comments&hellip;</p></div>
+</section>
+
+<script>
+(function () {
+	var root = document.getElementById("bsky-comments");
+	var thread = document.getElementById("bsky-comments-thread");
+	var meta = document.getElementById("bsky-comments-meta");
+	var uri = root.getAttribute("data-uri");
+
+	function el(tag, cls, text) {
+		var node = document.createElement(tag);
+		if (cls) node.className = cls;
+		if (text) node.textContent = text;
+		return node;
+	}
+
+	function postUrl(post) {
+		var rkey = post.uri.split("/").pop();
+		return "https://bsky.app/profile/" + post.author.did + "/post/" + rkey;
+	}
+
+	function fmtDate(iso) {
+		try {
+			return new Date(iso).toLocaleDateString(undefined,
+				{ year: "numeric", month: "short", day: "numeric" });
+		} catch (e) { return ""; }
+	}
+
+	function renderPost(node) {
+		var post = node.post;
+		var item = el("div", "bsky-comment");
+
+		var head = el("div", "bsky-comment-head");
+		if (post.author.avatar) {
+			var img = el("img", "bsky-avatar");
+			img.src = post.author.avatar;
+			img.alt = "";
+			img.loading = "lazy";
+			head.appendChild(img);
+		}
+		var author = el("a", "bsky-author",
+			post.author.displayName || post.author.handle);
+		author.href = "https://bsky.app/profile/" + post.author.did;
+		head.appendChild(author);
+		head.appendChild(el("span", "bsky-handle", "@" + post.author.handle));
+		var date = el("a", "bsky-date", fmtDate(post.record.createdAt));
+		date.href = postUrl(post);
+		head.appendChild(date);
+		item.appendChild(head);
+
+		item.appendChild(el("p", "bsky-text", post.record.text));
+
+		var likes = post.likeCount || 0;
+		if (likes > 0) {
+			item.appendChild(el("div", "bsky-likes",
+				likes + (likes === 1 ? " like" : " likes")));
+		}
+
+		if (node.replies && node.replies.length) {
+			var children = el("div", "bsky-replies");
+			sortReplies(node.replies).forEach(function (reply) {
+				if (reply.post && reply.post.record) {
+					children.appendChild(renderPost(reply));
+				}
+			});
+			item.appendChild(children);
+		}
+		return item;
+	}
+
+	function sortReplies(replies) {
+		return replies.slice().sort(function (a, b) {
+			var da = a.post && a.post.record ? a.post.record.createdAt : "";
+			var db = b.post && b.post.record ? b.post.record.createdAt : "";
+			return da < db ? -1 : 1;
+		});
+	}
+
+	fetch("https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?depth=10&uri="
+			+ encodeURIComponent(uri))
+		.then(function (resp) {
+			if (!resp.ok) throw new Error("HTTP " + resp.status);
+			return resp.json();
+		})
+		.then(function (data) {
+			var rootPost = data.thread && data.thread.post;
+			thread.textContent = "";
+			if (rootPost) {
+				meta.textContent = (rootPost.likeCount || 0) + " likes · "
+					+ (rootPost.repostCount || 0) + " reposts · "
+					+ (rootPost.replyCount || 0) + " replies on Bluesky";
+			}
+			var replies = (data.thread && data.thread.replies) || [];
+			if (!replies.length) {
+				thread.appendChild(el("p", null, "No comments yet. Be the first to reply!"));
+				return;
+			}
+			sortReplies(replies).forEach(function (reply) {
+				if (reply.post && reply.post.record) {
+					thread.appendChild(renderPost(reply));
+				}
+			});
+		})
+		.catch(function () {
+			thread.textContent = "";
+			thread.appendChild(el("p", null, "Could not load comments."));
+		});
+})();
+</script>
