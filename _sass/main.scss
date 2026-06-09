@@ -1,3 +1,4 @@
+@use "sass:math";
 $page-padding: 2rem;
 $main-section-width: 30rem;
 $main-section-border-width: 0.1rem;
@@ -290,7 +291,7 @@ nav {
       padding: 0.5rem 1rem;
     }
   }
-  @media (max-width: ($main-section-width / 1.5)) {
+  @media (max-width: math.div($main-section-width, 1.5)) {
     > a.home {
       width: 50%;
     }

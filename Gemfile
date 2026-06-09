@@ -1,10 +1,15 @@
 source "https://rubygems.org"
-gemspec
+
+gem "jekyll", "~> 4.4"
+
 group :jekyll_plugins do
-    gem "jekyll-sitemap"
+  gem "jekyll-sitemap"
+  gem "jekyll-compose"
 end
-gem 'html-proofer'
-gem 'tzinfo'
-gem 'tzinfo-data'
-gem 'jekyll-compose', group: [:jekyll_plugins]
-gem "github-pages", group: :jekyll_plugins
+
+# jekyll serve needs this on Ruby 3+
+gem "webrick"
+
+gem "html-proofer"
+gem "tzinfo"
+gem "tzinfo-data", platforms: %i[windows jruby]
