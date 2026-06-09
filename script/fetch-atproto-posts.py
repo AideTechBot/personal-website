@@ -380,7 +380,7 @@ def write_post(doc, uri, pds, did, taken_slugs):
         slug = f"{slug}-{rkey}"
     taken_slugs.add(slug)
 
-    front = ["---", "layout: post", f"title: {yaml_str(doc.get('title', 'Untitled'))}"]
+    front = ["---", "layout: post", f"title: {yaml_str(doc.get('title') or 'Untitled')}"]
     front.append(f"date: {published}")
     if doc.get("updatedAt"):
         front.append(f"modified: {doc['updatedAt']}")
