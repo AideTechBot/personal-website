@@ -98,3 +98,9 @@
     border-left: solid 0.1rem #bfbfbf;
   }
 }
+
+// keep width/height attributes for layout-shift prevention, but let
+// constrained images keep their natural aspect ratio
+article img[width][height] {
+  height: auto;
+}
