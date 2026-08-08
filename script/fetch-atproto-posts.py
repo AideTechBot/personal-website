@@ -334,17 +334,37 @@ def render_content(doc, pds, did):
     return ""
 
 
-def slugify(value):
+MAX_SLUG_LEN = 60
+
+
+def slugify(value, max_length=MAX_SLUG_LEN):
     value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode()
-    value = re.sub(r"[^\w\s-]", "", value).strip().lower()
-    return re.sub(r"[\s_-]+", "-", value).strip("-")
+    # apostrophes close up ("don't" -> "dont"); other punctuation separates
+    # words, so "standard.site" becomes "standard-site" rather than "standardsite"
+    value = value.replace("'", "")
+    value = re.sub(r"[^\w\s-]", " ", value).strip().lower()
+    value = re.sub(r"[\s_-]+", "-", value).strip("-")
+    if len(value) > max_length:
+        # cut at a word boundary so the URL does not end mid-word
+        value = value[:max_length].rsplit("-", 1)[0].strip("-")
+    return value
 
 
 def doc_slug(doc, rkey):
+    """Readable slug for the post URL, derived from the title.
+
+    Leaflet defaults a document's `path` to its record key ("/3mslq5up7vc2o"),
+    which makes for an unreadable URL, so `path` is only honoured when the author
+    set it to something other than the rkey. Falls back to the rkey when a title
+    has no slug-able characters at all (e.g. one that is entirely emoji).
+    """
     path = (doc.get("path") or "").strip("/")
-    if path:
-        return slugify(path.split("/")[-1]) or rkey
-    return slugify(doc.get("title", "")) or rkey
+    tail = path.split("/")[-1] if path else ""
+    if tail and tail != rkey:
+        custom = slugify(tail)
+        if custom:
+            return custom
+    return slugify(doc.get("title") or "") or rkey
 
 
 def existing_slugs():

@@ -5,10 +5,6 @@
 	<div class="divider"></div>
 	<h3>Comments</h3>
 	<p class="bsky-comments-meta" id="bsky-comments-meta"></p>
-	<p>
-		Reply on <a id="bsky-comments-link" href="https://bsky.app/profile/{{ bsky_parts[0] }}/post/{{ bsky_parts[2] }}">Bluesky</a>
-		to join the conversation.
-	</p>
 	<div id="bsky-comments-thread"><p>Loading comments&hellip;</p></div>
 </section>
 
@@ -16,6 +12,7 @@
 (function () {
 	var root = document.getElementById("bsky-comments");
 	var thread = document.getElementById("bsky-comments-thread");
+	var counts = document.getElementById("bsky-comments-counts");
 	var meta = document.getElementById("bsky-comments-meta");
 	var uri = root.getAttribute("data-uri");
 
@@ -38,7 +35,19 @@
 		} catch (e) { return ""; }
 	}
 
-	function renderPost(node) {
+	/* Levels of comments rendered inline: top-level replies and their direct
+	   replies. Anything deeper gets a link out to the Bluesky thread. */
+	var MAX_DEPTH = 2;
+
+	function visibleReplies(node) {
+		return sortReplies(node.replies || []).filter(function (reply) {
+			return reply.post && reply.post.record;
+		});
+	}
+
+	/* NB: block comments only — `layout: compress` collapses newlines, so a
+	   `//` comment would swallow the rest of the script. */
+	function renderComment(node, depth) {
 		var post = node.post;
 		var item = el("div", "bsky-comment");
 
@@ -68,16 +77,35 @@
 				likes + (likes === 1 ? " like" : " likes")));
 		}
 
-		if (node.replies && node.replies.length) {
-			var children = el("div", "bsky-replies");
-			sortReplies(node.replies).forEach(function (reply) {
-				if (reply.post && reply.post.record) {
-					children.appendChild(renderPost(reply));
-				}
+		var children = depth < MAX_DEPTH ? visibleReplies(node) : [];
+		var hidden = (post.replyCount || 0) - children.length;
+
+		var li = el("li");
+		var wrap = el("div", "node");
+		wrap.appendChild(item);
+		li.appendChild(wrap);
+
+		/* Replies we did not draw are represented by a plain link sitting where
+		   those replies would have been: one level deeper, after any that were
+		   drawn, connected by the tree line but with no comment box. */
+		if (children.length || hidden > 0) {
+			var sub = el("ul", "bsky-thread");
+			children.forEach(function (child) {
+				sub.appendChild(renderComment(child, depth + 1));
 			});
-			item.appendChild(children);
+			if (hidden > 0) {
+				var moreLi = el("li", "bsky-more");
+				var moreNode = el("div", "node");
+				var more = el("a", "bsky-more-replies",
+					(hidden === 1 ? "1 reply" : hidden + " replies") + "");
+				more.href = postUrl(post);
+				moreNode.appendChild(more);
+				moreLi.appendChild(moreNode);
+				sub.appendChild(moreLi);
+			}
+			li.appendChild(sub);
 		}
-		return item;
+		return li;
 	}
 
 	function sortReplies(replies) {
@@ -88,7 +116,7 @@
 		});
 	}
 
-	fetch("https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?depth=10&uri="
+	fetch("https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?depth=2&uri="
 			+ encodeURIComponent(uri))
 		.then(function (resp) {
 			if (!resp.ok) throw new Error("HTTP " + resp.status);
@@ -98,20 +126,33 @@
 			var rootPost = data.thread && data.thread.post;
 			thread.textContent = "";
 			if (rootPost) {
-				meta.textContent = (rootPost.likeCount || 0) + " likes · "
-					+ (rootPost.repostCount || 0) + " reposts · "
-					+ (rootPost.replyCount || 0) + " replies on Bluesky";
+				var threadUrl = root.getAttribute("data-url");
+
+				/* counts live up in the post header, outside this section */
+				if (counts) {
+					var countsLink = el("a", null, (rootPost.likeCount || 0)
+						+ " likes · " + (rootPost.repostCount || 0) + " reposts");
+					countsLink.href = threadUrl;
+					counts.textContent = "";
+					counts.appendChild(countsLink);
+				}
+
+				var repliesLink = el("a", null,
+					(rootPost.replyCount || 0) + " replies on Bluesky");
+				repliesLink.href = threadUrl;
+				meta.textContent = "";
+				meta.appendChild(repliesLink);
 			}
-			var replies = (data.thread && data.thread.replies) || [];
+			var replies = data.thread ? visibleReplies(data.thread) : [];
 			if (!replies.length) {
 				thread.appendChild(el("p", null, "No comments yet. Be the first to reply!"));
 				return;
 			}
-			sortReplies(replies).forEach(function (reply) {
-				if (reply.post && reply.post.record) {
-					thread.appendChild(renderPost(reply));
-				}
+			var list = el("ul", "bsky-thread bsky-thread-root");
+			replies.forEach(function (reply) {
+				list.appendChild(renderComment(reply, 1));
 			});
+			thread.appendChild(list);
 		})
 		.catch(function () {
 			thread.textContent = "";

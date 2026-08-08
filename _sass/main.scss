@@ -176,8 +176,16 @@ article {
   }
   .divider {
     background: #bfbfbf;
-    height: 0.1rem;
+    // whole pixels: 0.1rem (1.6px) rounds to 1px or 2px depending on where the
+    // divider lands in the layout, so dividers looked inconsistently thick
+    height: 1px;
     margin: 2em 0;
+  }
+  // Tighter under a post's meta row than the default 2em. Matched via .post-meta
+  // so project pages, which also wrap their header in .center, keep their
+  // original spacing.
+  .center:has(.post-meta) + .divider {
+    margin-top: 1em;
   }
   .center {
     text-align: center;

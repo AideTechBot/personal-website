@@ -44,19 +44,174 @@
 .bsky-comments {
   margin-top: 2rem;
 
+  h3 {
+    text-align: center;
+  }
+
   .bsky-comments-meta {
     color: #555;
     font-size: 0.9em;
+    margin: 0.5rem 0;
+
+    a {
+      color: inherit;
+    }
   }
 }
 
+// Counts on the left, date on the right. Only posts that carry a Bluesky ref
+// get the split; without it .post-meta stays a plain block so the four legacy
+// markdown posts keep their centred date.
+.post-meta-split {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+// Sits in the post header beside the date, but is filled in by the comments
+// script at the foot of the page. Linked, yet styled to read as plain text.
+.bsky-comments-counts {
+  color: #555;
+  font-size: 0.9em;
+  margin: 0;
+  // article's 1.9em line-height left ~6px of dead space under this one line,
+  // padding out the gap before the divider
+  line-height: 1.4;
+
+  a {
+    color: inherit;
+    border-bottom: none;
+  }
+}
+
+// Tree connectors, same construction as the resume's `ul.tree`: each item
+// carries the vertical trunk on its left border, and `.node::before` draws the
+// elbow from the trunk across to the comment. The last item's trunk goes
+// transparent so the line stops at its elbow.
+.bsky-thread {
+  --tree-line-width: 1em;
+  --tree-box-padding-x: 0.75rem;
+  // Indent so a nested trunk lands on its parent's *text*, not a hair off the
+  // parent box's left border — at 0.5em the two were 1.6px apart and the trunk
+  // read as a crooked continuation of the border above it.
+  --tree-indent-size: calc(
+    var(--tree-node-inset) + var(--tree-box-padding-x) + 1px
+  );
+  // gap above each comment box; there is deliberately none below, so an item's
+  // box bottom is also its <li> bottom and a trunk can never outrun its content
+  --tree-node-gap: 0.5rem;
+  // breathing room between the tree lines and the box they point at
+  --tree-node-inset: 0.4rem;
+  // lines up the elbow with the middle of the avatar rather than the middle of
+  // the whole comment, which varies with text length: node gap + box border +
+  // box padding + half an avatar
+  --tree-elbow-top: 1.8125rem;
+  --tree-line: 1px solid #bfbfbf;
+
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  // this <ul> lives inside <section class="bsky-comments">, so the homepage
+  // post-listing rules (`section ul li ...` in main.scss) match it. Undo the
+  // ones meant only for that listing.
+  span {
+    display: inline;
+    color: inherit;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  img {
+    width: auto;
+    height: auto;
+  }
+
+  a {
+    color: inherit;
+    border-bottom: 1px solid #555;
+  }
+
+  > li {
+    margin: 0 0 0 calc(var(--tree-indent-size) + var(--tree-line-width));
+    padding: 0;
+    list-style-type: none;
+    border-left: var(--tree-line);
+
+    > .node {
+      position: relative;
+      display: block;
+      // the elbow reaches --tree-line-width, so the extra inset is the gap
+      // between where the line stops and where the box starts
+      padding: var(--tree-node-gap) 0 0
+        calc(var(--tree-line-width) + var(--tree-node-inset));
+
+      &::before {
+        position: absolute;
+        top: 0;
+        bottom: calc(100% - var(--tree-elbow-top));
+        left: -1px;
+        width: var(--tree-line-width);
+        content: "";
+        border: var(--tree-line);
+        border-top: 0 none transparent;
+        border-right: 0 none transparent;
+      }
+    }
+  }
+
+  // A last item's trunk always stops at its own elbow, replies or not. Carrying
+  // it down past the box to skirt a nested tree just left a line trailing off
+  // toward a sibling that does not exist; the boxes and indent already show
+  // that the replies below belong to it.
+  > li:last-child {
+    border-left-color: transparent;
+  }
+
+  // A nested tree clears its parent's box by the same inset the elbows keep
+  // from the sides, so no line ever touches a box. Padding rather than margin:
+  // a margin would collapse out through the <li> (which has no bottom padding
+  // or border to contain it) and break the trunk between siblings.
+  > li > .bsky-thread {
+    margin: 0;
+    padding: var(--tree-node-inset) 0 0;
+  }
+
+  // the "N replies →" item is a bare line rather than a comment box, so its
+  // elbow sits at the middle of that one line of text instead of an avatar
+  > li.bsky-more > .node {
+    --tree-elbow-top: 1.21875rem;
+  }
+
+  // nested here rather than at the top level so it outranks the `a` reset above
+  .bsky-more-replies {
+    display: inline-block;
+    color: #888;
+    font-size: 0.85em;
+    border-bottom: none;
+  }
+}
+
+// Only nested trees indent; the outermost one starts flush against the left of
+// the article. Must follow the block above — same specificity, so source order
+// is what lets it win over `.bsky-thread > li`.
+.bsky-thread-root > li {
+  margin-left: 0;
+}
+
 .bsky-comment {
-  margin: 1rem 0;
+  margin: 0;
+  border: var(--tree-line);
+  padding: 0.5rem var(--tree-box-padding-x);
 
   .bsky-comment-head {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    // tight, so the name and handle read as one unit; the avatar and date add
+    // their own margins back to stay separated
+    gap: 0.25rem;
     flex-wrap: wrap;
   }
 
@@ -64,12 +219,13 @@
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    margin: 0;
+    margin: 0 0.25rem 0 0;
     display: inline-block;
   }
 
   .bsky-author {
     font-weight: bold;
+    border-bottom: none;
   }
 
   .bsky-handle {
@@ -80,6 +236,7 @@
     color: #888;
     font-size: 0.85em;
     border-bottom: none;
+    margin-left: 0.25rem;
   }
 
   .bsky-text {
@@ -92,11 +249,6 @@
     font-size: 0.85em;
   }
 
-  .bsky-replies {
-    margin-left: 1rem;
-    padding-left: 1rem;
-    border-left: solid 0.1rem #bfbfbf;
-  }
 }
 
 // keep width/height attributes for layout-shift prevention, but let

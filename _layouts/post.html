@@ -6,7 +6,13 @@ layout: default
 
 	<div class="center">
 		<h1 class="title">{{ page.title }}</h1>
-		<time>{{ page.date | date: '%B %-d, %Y' }}</time>
+		<div class="post-meta{% if page.bsky_uri %} post-meta-split{% endif %}">
+			{% if page.bsky_uri %}
+				{% comment %} filled in by the comments script at the foot of the page {% endcomment %}
+				<p class="bsky-comments-counts" id="bsky-comments-counts"></p>
+			{% endif %}
+			<time>{{ page.date | date: '%B %-d, %Y' }}</time>
+		</div>
 	</div>
 
 	<div class="divider"></div>
