@@ -20,10 +20,11 @@ kramdown:
     input:          GFM
 sass:
     style:          :compressed
+    sourcemap:      never
 
 # Other Params
 include:            [ "robots.txt", "resume.html", "resume.css" ]
-exclude:            [ "LICENSE", "README.md", "CNAME", "vendor", "Gemfile", "script", ".git", "docker-compose.yml", "the-plain.gemspec" ]
+exclude:            [ "LICENSE", "README.md", "CNAME", "vendor", "Gemfile", "Gemfile.lock", "script", ".git", "docker-compose.yml" ]
 plugins:
   - jekyll-sitemap
 

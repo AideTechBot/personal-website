@@ -1,0 +1,162 @@
+{% assign bsky_parts = page.bsky_uri | remove: "at://" | split: "/" %}
+<section class="bsky-comments" id="bsky-comments"
+         data-uri="{{ page.bsky_uri }}"
+         data-url="https://bsky.app/profile/{{ bsky_parts[0] }}/post/{{ bsky_parts[2] }}">
+	<div class="divider"></div>
+	<h3>Comments</h3>
+	<p class="bsky-comments-meta" id="bsky-comments-meta"></p>
+	<div id="bsky-comments-thread"><p>Loading comments&hellip;</p></div>
+</section>
+
+<script>
+(function () {
+	var root = document.getElementById("bsky-comments");
+	var thread = document.getElementById("bsky-comments-thread");
+	var counts = document.getElementById("bsky-comments-counts");
+	var meta = document.getElementById("bsky-comments-meta");
+	var uri = root.getAttribute("data-uri");
+
+	function el(tag, cls, text) {
+		var node = document.createElement(tag);
+		if (cls) node.className = cls;
+		if (text) node.textContent = text;
+		return node;
+	}
+
+	function postUrl(post) {
+		var rkey = post.uri.split("/").pop();
+		return "https://bsky.app/profile/" + post.author.did + "/post/" + rkey;
+	}
+
+	function fmtDate(iso) {
+		try {
+			return new Date(iso).toLocaleDateString(undefined,
+				{ year: "numeric", month: "short", day: "numeric" });
+		} catch (e) { return ""; }
+	}
+
+	/* Levels of comments rendered inline: top-level replies and their direct
+	   replies. Anything deeper gets a link out to the Bluesky thread. */
+	var MAX_DEPTH = 2;
+
+	function visibleReplies(node) {
+		return sortReplies(node.replies || []).filter(function (reply) {
+			return reply.post && reply.post.record;
+		});
+	}
+
+	/* NB: block comments only — `layout: compress` collapses newlines, so a
+	   `//` comment would swallow the rest of the script. */
+	function renderComment(node, depth) {
+		var post = node.post;
+		var item = el("div", "bsky-comment");
+
+		var head = el("div", "bsky-comment-head");
+		if (post.author.avatar) {
+			var img = el("img", "bsky-avatar");
+			img.src = post.author.avatar;
+			img.alt = "";
+			img.loading = "lazy";
+			head.appendChild(img);
+		}
+		var author = el("a", "bsky-author",
+			post.author.displayName || post.author.handle);
+		author.href = "https://bsky.app/profile/" + post.author.did;
+		head.appendChild(author);
+		head.appendChild(el("span", "bsky-handle", "@" + post.author.handle));
+		var date = el("a", "bsky-date", fmtDate(post.record.createdAt));
+		date.href = postUrl(post);
+		head.appendChild(date);
+		item.appendChild(head);
+
+		item.appendChild(el("p", "bsky-text", post.record.text));
+
+		var likes = post.likeCount || 0;
+		if (likes > 0) {
+			item.appendChild(el("div", "bsky-likes",
+				likes + (likes === 1 ? " like" : " likes")));
+		}
+
+		var children = depth < MAX_DEPTH ? visibleReplies(node) : [];
+		var hidden = (post.replyCount || 0) - children.length;
+
+		var li = el("li");
+		var wrap = el("div", "node");
+		wrap.appendChild(item);
+		li.appendChild(wrap);
+
+		/* Replies we did not draw are represented by a plain link sitting where
+		   those replies would have been: one level deeper, after any that were
+		   drawn, connected by the tree line but with no comment box. */
+		if (children.length || hidden > 0) {
+			var sub = el("ul", "bsky-thread");
+			children.forEach(function (child) {
+				sub.appendChild(renderComment(child, depth + 1));
+			});
+			if (hidden > 0) {
+				var moreLi = el("li", "bsky-more");
+				var moreNode = el("div", "node");
+				var more = el("a", "bsky-more-replies",
+					(hidden === 1 ? "1 reply" : hidden + " replies") + "");
+				more.href = postUrl(post);
+				moreNode.appendChild(more);
+				moreLi.appendChild(moreNode);
+				sub.appendChild(moreLi);
+			}
+			li.appendChild(sub);
+		}
+		return li;
+	}
+
+	function sortReplies(replies) {
+		return replies.slice().sort(function (a, b) {
+			var da = a.post && a.post.record ? a.post.record.createdAt : "";
+			var db = b.post && b.post.record ? b.post.record.createdAt : "";
+			return da < db ? -1 : 1;
+		});
+	}
+
+	fetch("https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?depth=2&uri="
+			+ encodeURIComponent(uri))
+		.then(function (resp) {
+			if (!resp.ok) throw new Error("HTTP " + resp.status);
+			return resp.json();
+		})
+		.then(function (data) {
+			var rootPost = data.thread && data.thread.post;
+			thread.textContent = "";
+			if (rootPost) {
+				var threadUrl = root.getAttribute("data-url");
+
+				/* counts live up in the post header, outside this section */
+				if (counts) {
+					var countsLink = el("a", null, (rootPost.likeCount || 0)
+						+ " likes · " + (rootPost.repostCount || 0) + " reposts");
+					countsLink.href = threadUrl;
+					counts.textContent = "";
+					counts.appendChild(countsLink);
+				}
+
+				var repliesLink = el("a", null,
+					(rootPost.replyCount || 0) + " replies on Bluesky");
+				repliesLink.href = threadUrl;
+				meta.textContent = "";
+				meta.appendChild(repliesLink);
+			}
+			var replies = data.thread ? visibleReplies(data.thread) : [];
+			if (!replies.length) {
+				thread.appendChild(el("p", null, "No comments yet. Be the first to reply!"));
+				return;
+			}
+			var list = el("ul", "bsky-thread bsky-thread-root");
+			replies.forEach(function (reply) {
+				list.appendChild(renderComment(reply, 1));
+			});
+			thread.appendChild(list);
+		})
+		.catch(function () {
+			thread.textContent = "";
+			thread.appendChild(el("p", null, "Could not load comments."));
+		});
+})();
+</script>

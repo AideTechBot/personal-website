@@ -1,12 +1,15 @@
-# This file is because it's too much of a pain to install a super old version of ruby
-# and I'd rather just use a docker image to test locally
+# Local dev without installing Ruby on the host.
+# With modern Ruby you can also just run: bundle install && bundle exec jekyll serve
 services:
   jekyll:
-    image: jekyll/jekyll:3.5
+    image: ruby:3.4
+    working_dir: /srv/jekyll
     volumes:
       - .:/srv/jekyll
-      - /srv/jekyll/.git/
-      - ./vendor/bundle/:/usr/local/bundle
+      - bundle-cache:/usr/local/bundle
     ports:
       - "4000:4000"
-    command: jekyll serve --force_polling --drafts
+    command: bash -c "bundle install && bundle exec jekyll serve --host 0.0.0.0 --force_polling --drafts"
+
+volumes:
+  bundle-cache:
